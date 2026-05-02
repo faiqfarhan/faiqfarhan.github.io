@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>30% efficiency gain at InstaFreight — Faiq Farhan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1714;--ink2:#4a4642;--ink3:#8a8480;--paper:#f7f4ef;--paper2:#ede9e2;--accent:#c8401b;--border:rgba(26,23,20,0.12);--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--ink2);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;font-size:.875rem;font-weight:500;text-decoration:none}
+.post-container{max-width:740px;margin:0 auto;padding:4rem 5vw 6rem}
+.breadcrumb{font-size:.8rem;color:var(--ink3);margin-bottom:2rem}
+.breadcrumb a{color:var(--ink3);text-decoration:none}
+.breadcrumb a:hover{color:var(--accent)}
+.post-tag{display:inline-block;background:#fde8e0;color:var(--accent);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px;margin-bottom:1.25rem}
+.post-header h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-bottom:1rem}
+.post-header .lede{font-size:1.1rem;color:var(--ink2);line-height:1.75;margin-bottom:1.5rem}
+.post-byline{display:flex;align-items:center;gap:1rem;padding:1.25rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.byline-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#e8a87c,#c8401b);display:flex;align-items:center;justify-content:center;font-family:var(--serif);color:#fff;font-size:.95rem}
+.byline-name{font-size:.88rem;font-weight:600}
+.byline-meta{font-size:.78rem;color:var(--ink3)}
+.byline-right{margin-left:auto;font-size:.78rem;color:var(--ink3)}
+.post-body{font-size:1rem;line-height:1.85;color:var(--ink2);margin-top:2.5rem}
+.post-body h2{font-family:var(--serif);font-size:1.6rem;color:var(--ink);margin:2.5rem 0 .75rem;line-height:1.2}
+.post-body h3{font-size:1.05rem;font-weight:600;color:var(--ink);margin:2rem 0 .5rem}
+.post-body p{margin-bottom:1.4rem}
+.post-body ul,.post-body ol{padding-left:1.5rem;margin-bottom:1.4rem}
+.post-body li{margin-bottom:.5rem}
+.post-body strong{color:var(--ink);font-weight:600}
+.post-body a{color:var(--accent)}
+.post-body pre{background:var(--ink);color:#f7f4ef;border-radius:.75rem;padding:1.5rem;overflow-x:auto;margin:1.5rem 0;font-size:.82rem;line-height:1.7;font-family:'Courier New',monospace}
+.post-body code{background:var(--paper2);border-radius:4px;padding:.15rem .4rem;font-size:.88em;font-family:'Courier New',monospace;color:var(--accent)}
+.callout{background:var(--paper2);border-left:3px solid var(--accent);border-radius:0 .75rem .75rem 0;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.callout p{margin-bottom:0;font-size:.92rem}
+.post-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.metric-box{background:#fff;border:1px solid var(--border);border-radius:1rem;padding:1.25rem;text-align:center}
+.metric-box-val{font-family:var(--serif);font-size:2rem;color:var(--ink);line-height:1}
+.metric-box-label{font-size:.75rem;color:var(--ink3);margin-top:4px}
+.post-footer{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+.post-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.post-tag-item{font-size:.78rem;border:1.5px solid var(--border);border-radius:2rem;padding:.3rem .75rem;color:var(--ink2);text-decoration:none}
+.post-tag-item:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.author-card{background:var(--paper2);border-radius:1rem;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.author-card-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#e8a87c,#c8401b);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.2rem;color:#fff;flex-shrink:0}
+.author-card h4{font-size:.95rem;font-weight:600;margin-bottom:.25rem}
+.author-card p{font-size:.82rem;color:var(--ink2);line-height:1.65}
+footer{background:var(--paper2);border-top:1px solid var(--border);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.82rem;color:var(--ink3);text-decoration:none}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-size:.78rem;color:var(--ink3)}
+@media(max-width:768px){.nav-links{display:none}.metric-row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Faiq Farhan</a>
+  <ul class="nav-links">
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Hire me</a>
+</nav>
+
+<div class="post-container">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="blog.html">Blog</a> / 30% efficiency gain at InstaFreight</div>
+
+  <div class="post-header">
+    <span class="post-tag">Automation</span>
+    <h1>How I cut automation test time by 30% at InstaFreight (without rewriting everything)</h1>
+    <p class="lede">When a test suite takes longer to run than a sprint, it stops being useful. Here's the exact changes I made to InstaFreight's Postman/Newman setup that delivered a 30% efficiency gain — without throwing away any existing work.</p>
+    <div class="post-byline">
+      <div class="byline-avatar">FF</div>
+      <div>
+        <div class="byline-name">Faiq Farhan</div>
+        <div class="byline-meta">R&amp;D Verification Engineer II at Ansys · ex-InstaFreight QA Analyst</div>
+      </div>
+      <div class="byline-right">March 12, 2025 · 9 min read</div>
+    </div>
+  </div>
+
+  <div class="post-body">
+    <p>When I joined InstaFreight in January 2022, the QA process was working — in the sense that bugs were being found and software was being shipped. But the automated testing setup had grown organically without much structure, and it was showing. Test runs were slow, results were inconsistent, and the team had developed a habit of re-running tests twice "just to be sure."</p>
+    <p>By the time I left in mid-2023, we had a 30% improvement in testing efficiency, a CI pipeline that developers actually trusted, and a test coverage map that product managers could actually read. Here's exactly what changed.</p>
+
+    <div class="metric-row">
+      <div class="metric-box"><div class="metric-box-val">+30%</div><div class="metric-box-label">Testing efficiency</div></div>
+      <div class="metric-box"><div class="metric-box-val">−40%</div><div class="metric-box-label">Re-run rate</div></div>
+      <div class="metric-box"><div class="metric-box-val">200+</div><div class="metric-box-label">API scenarios covered</div></div>
+    </div>
+
+    <h2>The starting point: what was broken</h2>
+    <p>InstaFreight's core product is a freight-matching platform — shippers post loads, carriers bid, the platform matches them. The API layer is the real product: a large REST API covering shipment creation, carrier discovery, pricing, bidding, and tracking events.</p>
+    <p>The existing Postman collection had grown to around 150 requests organised loosely by "what someone was testing that day." There was no consistent naming, no environment separation, and authentication tokens were hardcoded — meaning tests broke every time someone's token expired. Tests were run manually by whoever was doing QA that sprint, results were screenshots in a Confluence page, and there was no CI integration at all.</p>
+    <div class="callout">
+      <p>The real problem wasn't the tooling — Postman and Newman are perfectly capable of handling this properly. The problem was that the collection had grown without a structure to grow <em>into</em>.</p>
+    </div>
+
+    <h2>Step 1: audit and restructure the collection</h2>
+    <p>Before writing a single new test, I spent a week going through the existing collection request by request. I categorised every request into one of four buckets:</p>
+    <ol>
+      <li><strong>Keep as-is</strong> — well-written, clear assertions, testing something important</li>
+      <li><strong>Fix and keep</strong> — testing the right thing but with hardcoded values or missing assertions</li>
+      <li><strong>Consolidate</strong> — duplicate tests covering the same scenario from slightly different angles</li>
+      <li><strong>Delete</strong> — outdated tests for deprecated endpoints, or tests with no assertions that were effectively just "this request doesn't 500"</li>
+    </ol>
+    <p>About 35% of the collection fell into categories 3 and 4. Removing or merging those immediately made the suite faster to run and easier to understand.</p>
+    <p>I then reorganised the remaining requests into folders matching the API domain: <code>Authentication</code>, <code>Shipments</code>, <code>Carriers</code>, <code>Pricing</code>, <code>Bidding</code>, <code>Tracking</code>. Each folder had a consistent naming convention: <code>[METHOD] endpoint — scenario description</code>. For example: <code>POST /shipments — create shipment with valid payload</code> and <code>POST /shipments — reject shipment with missing origin address</code>.</p>
+
+    <h2>Step 2: fix authentication properly</h2>
+    <p>Hardcoded auth tokens were the biggest source of test failures that weren't actually bugs. The fix was straightforward but required changing how every test in the collection worked.</p>
+    <p>I added a pre-request script at the collection level that checks whether a valid token exists in the environment and fetches a new one if not:</p>
+    <pre>// Collection-level pre-request script
+const token = pm.environment.get('auth_token');
+const expiry = pm.environment.get('token_expiry');
+const now = Date.now();
+
+if (!token || now > parseInt(expiry)) {
+    pm.sendRequest({
+        url: pm.environment.get('base_url') + '/auth/token',
+        method: 'POST',
+        header: { 'Content-Type': 'application/json' },
+        body: {
+            mode: 'raw',
+            raw: JSON.stringify({
+                client_id: pm.environment.get('client_id'),
+                client_secret: pm.environment.get('client_secret')
+            })
+        }
+    }, (err, res) => {
+        pm.environment.set('auth_token', res.json().access_token);
+        pm.environment.set('token_expiry', now + (3600 * 1000));
+    });
+}</pre>
+    <p>This alone eliminated a huge category of false failures. Tests stopped breaking because someone's token had expired the previous night.</p>
+
+    <h2>Step 3: data-driven testing with CSV files</h2>
+    <p>A lot of the API behaviour depended on the specific data being sent — different shipment sizes triggered different pricing rules, different origin/destination combinations matched different carrier pools. The original tests covered maybe 5 data variations manually. We needed more without writing 5× as many tests.</p>
+    <p>I created CSV data files for the high-value scenarios and ran Newman with the <code>--iteration-data</code> flag. For the shipment creation endpoint alone, this let us cover 40 data variations with a single test request.</p>
+    <pre># Running Newman with data file in CI
+newman run collections/shipments.postman_collection.json \
+  --environment environments/staging.postman_environment.json \
+  --iteration-data test-data/shipment-scenarios.csv \
+  --reporters cli,junit \
+  --reporter-junit-export results/shipments-results.xml</pre>
+
+    <h2>The outcome</h2>
+    <p>The combination of removing redundant tests, fixing authentication, parallelising Newman runs per domain, and adding data-driven coverage got us to the 30% efficiency figure. But the number I was more proud of was the reduction in re-runs — from "always run it twice" to "re-run only when there's a genuine reason."</p>
+    <p>That shift happened because developers started trusting the results. When a test failed, it was because something in the application had changed, not because the test infrastructure was unreliable. That trust is the actual goal — efficiency is just the measurable proxy for it.</p>
+
+    <hr class="post-divider"/>
+    <p>The full Newman + GitHub Actions setup I built from these patterns is available as an open-source project: <a href="projects.html">see the Selenium POM Framework and JMeter Load Test Suite on my projects page</a>. The same principles apply across both.</p>
+  </div>
+
+  <div class="post-footer">
+    <div class="post-tags">
+      <a class="post-tag-item" href="#">Automation</a>
+      <a class="post-tag-item" href="#">API Testing</a>
+      <a class="post-tag-item" href="#">Postman</a>
+      <a class="post-tag-item" href="#">Newman</a>
+      <a class="post-tag-item" href="#">CI/CD</a>
+    </div>
+    <div class="author-card">
+      <div class="author-card-avatar">FF</div>
+      <div>
+        <h4>Faiq Farhan</h4>
+        <p>Software Testing Engineer with 7+ years of experience in manual and automation testing. Currently R&amp;D Verification Engineer II at Ansys in Berlin. Previously QA Analyst at InstaFreight and QA Engineer at Octek and The XPertz. Writes about QA, automation, and building quality processes in Agile teams.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Faiq Farhan</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Faiq Farhan</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Faiq Farhan QA Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1714;--ink2:#4a4642;--ink3:#8a8480;--paper:#f7f4ef;--paper2:#ede9e2;--accent:#c8401b;--accent2:#e8a87c;--green:#2d6a4f;--green2:#d8f3dc;--border:rgba(26,23,20,0.12);--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--ink2);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;font-size:.875rem;font-weight:500;text-decoration:none}
+.contact-layout{max-width:1100px;margin:0 auto;padding:5rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.breadcrumb{font-size:.8rem;color:var(--ink3);margin-bottom:2rem}
+.breadcrumb a{color:var(--ink3);text-decoration:none}
+.contact-left h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,3.5rem);line-height:1.1;margin-bottom:1.25rem}
+.contact-left p{font-size:1rem;color:var(--ink2);line-height:1.75;margin-bottom:2.5rem}
+.availability-badge{display:flex;align-items:center;gap:.6rem;background:var(--green2);border:1px solid #95d5b2;border-radius:.75rem;padding:.75rem 1rem;margin-bottom:2.5rem}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.availability-badge div{font-size:.85rem;color:var(--green);font-weight:500}
+.availability-badge span{font-size:.78rem;color:#4a7c59}
+.contact-methods{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem}
+.contact-method{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--ink2);transition:color .2s}
+.contact-method:hover{color:var(--accent)}
+.cm-icon{width:42px;height:42px;border-radius:.6rem;background:var(--paper2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:background .2s}
+.contact-method:hover .cm-icon{background:#fde8e0;border-color:#f4bfaa}
+.cm-label{font-size:.72rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.cm-value{font-size:.9rem;font-weight:500}
+.faq-section{margin-top:2.5rem}
+.faq-section h3{font-family:var(--serif);font-size:1.2rem;margin-bottom:1.25rem}
+.faq-item{border-top:1px solid var(--border);padding:1rem 0}
+.faq-q{font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+.faq-a{font-size:.82rem;color:var(--ink2);line-height:1.7}
+.contact-form-card{background:#fff;border:1px solid var(--border);border-radius:1.5rem;padding:2.5rem}
+.contact-form-card h2{font-family:var(--serif);font-size:1.5rem;margin-bottom:.5rem}
+.contact-form-card .subtitle{font-size:.85rem;color:var(--ink3);margin-bottom:2rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--ink2);margin-bottom:.4rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:.6rem;padding:.65rem .9rem;font-family:var(--sans);font-size:.88rem;color:var(--ink);background:var(--paper);transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--accent)}
+.form-group textarea{min-height:120px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.submit-btn{width:100%;background:var(--ink);color:var(--paper);border:none;border-radius:.6rem;padding:.85rem;font-family:var(--sans);font-size:.9rem;font-weight:500;cursor:pointer;transition:background .2s;margin-top:.5rem}
+.submit-btn:hover{background:var(--accent)}
+.form-note{font-size:.75rem;color:var(--ink3);text-align:center;margin-top:.75rem}
+.success-message{display:none;background:var(--green2);border:1px solid #95d5b2;border-radius:.75rem;padding:1.25rem;text-align:center}
+.success-message h3{font-size:1rem;color:var(--green);margin-bottom:.25rem}
+.success-message p{font-size:.82rem;color:#4a7c59}
+footer{background:var(--paper2);border-top:1px solid var(--border);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.82rem;color:var(--ink3);text-decoration:none}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-size:.78rem;color:var(--ink3)}
+@media(max-width:768px){.contact-layout{grid-template-columns:1fr;gap:3rem;padding-top:3rem}.form-row{grid-template-columns:1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Faiq Farhan</a>
+  <ul class="nav-links">
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Hire me</a>
+</nav>
+
+<div class="contact-layout">
+  <div class="contact-left">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+    <h1>Let's talk about quality.</h1>
+    <p>Whether you're looking for a QA engineer with automation and verification experience, need help setting up a testing process, or just want to connect — I'd love to hear from you.</p>
+
+    <div class="availability-badge">
+      <div class="avail-dot"></div>
+      <div>
+        <div>Open to new opportunities</div>
+        <span>Berlin, Germany · Open to hybrid &amp; remote roles across Europe</span>
+      </div>
+    </div>
+
+    <div class="contact-methods">
+      <a class="contact-method" href="mailto:faiq.farhan@email.com">
+        <div class="cm-icon">✉️</div>
+        <div><div class="cm-label">Email</div><div class="cm-value">faiq.farhan@email.com</div></div>
+      </a>
+      <a class="contact-method" href="https://linkedin.com/in/faiqfarhan" target="_blank">
+        <div class="cm-icon">🔗</div>
+        <div><div class="cm-label">LinkedIn</div><div class="cm-value">linkedin.com/in/faiqfarhan</div></div>
+      </a>
+      <a class="contact-method" href="https://github.com/faiqfarhan" target="_blank">
+        <div class="cm-icon">💻</div>
+        <div><div class="cm-label">GitHub</div><div class="cm-value">github.com/faiqfarhan</div></div>
+      </a>
+      <a class="contact-method" href="#">
+        <div class="cm-icon">📄</div>
+        <div><div class="cm-label">CV / Resume</div><div class="cm-value">Download PDF (Updated 2025)</div></div>
+      </a>
+    </div>
+
+    <div class="faq-section">
+      <h3>Common questions</h3>
+      <div class="faq-item">
+        <div class="faq-q">What kind of roles are you looking for?</div>
+        <div class="faq-a">Senior QA Engineer, QA Lead, or SDET roles — ideally in a product company where quality is treated as a first-class concern. Agile/Scrum environments preferred.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are you open to remote or international roles?</div>
+        <div class="faq-a">Yes — I'm based in Berlin and open to hybrid or fully remote roles within the EU. I'm also open to relocation for the right opportunity.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you do freelance or consulting work?</div>
+        <div class="faq-a">I'm selectively open to short-term consulting engagements — particularly for automation framework setup, QA process design, or test strategy reviews. Get in touch to discuss.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's your experience with Agile teams?</div>
+        <div class="faq-a">All of my roles have been in Agile/Scrum environments. I'm comfortable in sprint ceremonies, writing acceptance criteria, and working directly with developers and product owners as a quality partner — not just a test executor.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="contact-form-card">
+      <h2>Send me a message</h2>
+      <p class="subtitle">I typically reply within 1–2 business days.</p>
+      <div id="form-body">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" placeholder="Jane"/></div>
+          <div class="form-group"><label>Last name</label><input type="text" placeholder="Smith"/></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" id="email-field" placeholder="jane@company.com"/></div>
+        <div class="form-group"><label>Company (optional)</label><input type="text" placeholder="Acme GmbH"/></div>
+        <div class="form-group">
+          <label>What's this about?</label>
+          <select>
+            <option value="">Select a topic…</option>
+            <option>Full-time QA Engineer role</option>
+            <option>Contract / freelance engagement</option>
+            <option>Test automation consulting</option>
+            <option>Speaking / podcast invitation</option>
+            <option>GitHub project question</option>
+            <option>Just saying hello</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="message-field" placeholder="Tell me a bit about what you're working on and how I can help…"></textarea></div>
+        <button class="submit-btn" onclick="submitForm()">Send message</button>
+        <p class="form-note">No spam, ever. Your details are only used to reply to you.</p>
+      </div>
+      <div class="success-message" id="success-msg">
+        <h3>✓ Message sent!</h3>
+        <p>Thanks for reaching out, I'll get back to you within 1–2 business days.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Faiq Farhan</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="blog.html">Blog</a>
+    <a href="https://linkedin.com/in/faiqfarhan" target="_blank">LinkedIn</a>
+    <a href="https://github.com/faiqfarhan" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2025 Faiq Farhan</div>
+</footer>
+
+<script>
+function submitForm() {
+  const email = document.getElementById('email-field');
+  const msg = document.getElementById('message-field');
+  let valid = true;
+  [email, msg].forEach(el => {
+    if (!el.value.trim()) { el.style.borderColor = '#c8401b'; valid = false; }
+    else el.style.borderColor = '';
+  });
+  if (!valid) return;
+  document.getElementById('form-body').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
+</body>
+</html>

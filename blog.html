@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — Faiq Farhan QA Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1714;--ink2:#4a4642;--ink3:#8a8480;--paper:#f7f4ef;--paper2:#ede9e2;--accent:#c8401b;--accent2:#e8a87c;--border:rgba(26,23,20,0.12);--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--ink2);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;font-size:.875rem;font-weight:500;text-decoration:none}
+.page-hero{padding:5rem 5vw 3rem;max-width:1200px;margin:0 auto}
+.breadcrumb{font-size:.8rem;color:var(--ink3);margin-bottom:1.5rem}
+.breadcrumb a{color:var(--ink3);text-decoration:none}
+.page-hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1;margin-bottom:1rem}
+.page-hero p{font-size:1.05rem;color:var(--ink2);max-width:560px;line-height:1.75}
+.blog-layout{padding:2rem 5vw 5rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:3rem}
+.featured-post{background:#fff;border:1px solid var(--border);border-radius:1.5rem;overflow:hidden;margin-bottom:2rem;display:grid;grid-template-columns:1fr 1fr}
+.featured-thumb{display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#fde8e0,#e8a87c);font-size:4rem;min-height:260px}
+.featured-body{padding:2.5rem;display:flex;flex-direction:column;justify-content:center}
+.post-badge{display:inline-block;background:#fde8e0;color:var(--accent);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px;margin-bottom:1rem}
+.featured-body h2{font-family:var(--serif);font-size:1.7rem;line-height:1.2;margin-bottom:.75rem}
+.featured-body p{font-size:.9rem;color:var(--ink2);line-height:1.75;margin-bottom:1.25rem}
+.post-meta{display:flex;gap:1rem;font-size:.78rem;color:var(--ink3);margin-bottom:1.25rem}
+.read-link{font-size:.85rem;font-weight:600;color:var(--accent);text-decoration:none}
+.read-link:hover{text-decoration:underline}
+.article-list{display:flex;flex-direction:column;gap:1.25rem}
+.article-card{background:#fff;border:1px solid var(--border);border-radius:1rem;padding:1.5rem;display:flex;gap:1.25rem;transition:box-shadow .2s}
+.article-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.article-icon{width:52px;height:52px;border-radius:.75rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.article-content h3{font-size:1rem;font-weight:600;margin-bottom:.3rem;line-height:1.4}
+.article-content p{font-size:.82rem;color:var(--ink2);line-height:1.65;margin-bottom:.6rem}
+.article-footer{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.article-meta{font-size:.75rem;color:var(--ink3)}
+.article-tag{font-size:.7rem;border:1px solid var(--border);border-radius:4px;padding:.15rem .45rem;color:var(--ink2)}
+.sidebar{display:flex;flex-direction:column;gap:1.5rem}
+.sidebar-card{background:#fff;border:1px solid var(--border);border-radius:1rem;padding:1.5rem}
+.sidebar-card h4{font-family:var(--serif);font-size:1.1rem;margin-bottom:1rem}
+.sidebar-card p{font-size:.82rem;color:var(--ink2);line-height:1.65;margin-bottom:.75rem}
+.topic-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.topic-pill{font-size:.78rem;border:1.5px solid var(--border);border-radius:2rem;padding:.3rem .75rem;color:var(--ink2);text-decoration:none;transition:all .2s}
+.topic-pill:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.newsletter-form{display:flex;flex-direction:column;gap:.75rem}
+.newsletter-form input{border:1.5px solid var(--border);border-radius:.5rem;padding:.6rem .9rem;font-family:var(--sans);font-size:.85rem;background:var(--paper);color:var(--ink)}
+.newsletter-form button{background:var(--accent);color:#fff;border:none;border-radius:.5rem;padding:.65rem;font-family:var(--sans);font-size:.85rem;font-weight:500;cursor:pointer}
+.about-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.2rem;color:#fff;margin-bottom:1rem}
+footer{background:var(--paper2);border-top:1px solid var(--border);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.82rem;color:var(--ink3);text-decoration:none}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-size:.78rem;color:var(--ink3)}
+@media(max-width:900px){.blog-layout{grid-template-columns:1fr}.featured-post{grid-template-columns:1fr}.featured-thumb{min-height:160px}.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Faiq Farhan</a>
+  <ul class="nav-links">
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Hire me</a>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Blog</div>
+  <h1>Thoughts on testing</h1>
+  <p>I write about test automation, performance testing, and lessons learned from 7+ years in QA — at companies ranging from Pakistani startups to Berlin's logistics and engineering software scene.</p>
+</div>
+
+<div class="blog-layout">
+  <div>
+    <div class="featured-post">
+      <div class="featured-thumb">🔥</div>
+      <div class="featured-body">
+        <span class="post-badge">Featured</span>
+        <h2>How I cut automation test time by 30% at InstaFreight (without rewriting everything)</h2>
+        <div class="post-meta"><span>March 12, 2025</span><span>9 min read</span></div>
+        <p>When the test suite takes longer to run than a sprint, it stops being useful. Here's the exact changes I made to InstaFreight's Postman/Newman setup that delivered a 30% efficiency gain without a full rewrite.</p>
+        <a class="read-link" href="blog-post.html">Read article →</a>
+      </div>
+    </div>
+
+    <div class="article-list">
+      <div class="article-card">
+        <div class="article-icon" style="background:#dbeafe;">🔬</div>
+        <div class="article-content">
+          <h3>What R&amp;D verification at Ansys taught me about test planning that most QA engineers never learn</h3>
+          <p>Software for aerospace and automotive simulation has zero tolerance for ambiguity. The verification rigour I learned at Ansys changed how I approach test planning even for everyday web apps.</p>
+          <div class="article-footer"><span class="article-meta">January 8, 2025 · 11 min read</span><span class="article-tag">Verification</span><span class="article-tag">Test Planning</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-icon" style="background:#fde8e0;">🤖</div>
+        <div class="article-content">
+          <h3>Selenium in 2025: should you still bother, or switch to Playwright?</h3>
+          <p>I've used Selenium across four companies and I still think it has a place — but not for every project. An honest, opinionated comparison from someone who's used both in production.</p>
+          <div class="article-footer"><span class="article-meta">November 22, 2024 · 10 min read</span><span class="article-tag">Selenium</span><span class="article-tag">Automation</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-icon" style="background:#d8f3dc;">⚡</div>
+        <div class="article-content">
+          <h3>JMeter from zero to CI: the setup guide I wish I'd had at The XPertz</h3>
+          <p>A step-by-step guide to setting up JMeter, writing your first realistic test plan, and running it automatically in GitHub Actions — with the Grafana dashboard config included.</p>
+          <div class="article-footer"><span class="article-meta">October 5, 2024 · 14 min read</span><span class="article-tag">JMeter</span><span class="article-tag">Performance</span><span class="article-tag">CI/CD</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-icon" style="background:#e9d5ff;">📱</div>
+        <div class="article-content">
+          <h3>iOS vs Android testing: the practical differences nobody documents</h3>
+          <p>After testing mobile apps at Octek across both platforms, here are the real-world differences in test behaviour, device fragmentation, and defect patterns that catch testers off guard.</p>
+          <div class="article-footer"><span class="article-meta">August 19, 2024 · 8 min read</span><span class="article-tag">Mobile</span><span class="article-tag">iOS</span><span class="article-tag">Android</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-icon" style="background:#ede9e2;">📋</div>
+        <div class="article-content">
+          <h3>JIRA for QA teams: the setup that actually works (and the defaults that don't)</h3>
+          <p>After using JIRA for defect management across multiple companies, here's the workflow configuration, custom fields, and automation rules I keep implementing from scratch at every new job.</p>
+          <div class="article-footer"><span class="article-meta">June 30, 2024 · 7 min read</span><span class="article-tag">JIRA</span><span class="article-tag">Process</span></div>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-icon" style="background:#fef9c3;">🚀</div>
+        <div class="article-content">
+          <h3>Moving from Lahore to Berlin as a QA engineer: what changed about how I work</h3>
+          <p>Beyond the obvious cultural differences, there were real shifts in how software teams operate, how quality is prioritised, and what senior QA engineers are expected to own. A reflection after 3 years in Berlin.</p>
+          <div class="article-footer"><span class="article-meta">April 14, 2024 · 6 min read</span><span class="article-tag">Career</span><span class="article-tag">Berlin</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="about-avatar">FF</div>
+      <h4>About the author</h4>
+      <p>Software Testing Engineer with 7+ years across Pakistan and Germany. Currently R&amp;D Verification Engineer II at Ansys in Berlin. I write about automation, performance, and the practical side of building QA processes.</p>
+      <a class="read-link" href="index.html">View full profile →</a>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Newsletter</h4>
+      <p>One QA insight per month. No filler. Unsubscribe any time.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com"/>
+        <button type="button">Subscribe</button>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Browse by topic</h4>
+      <div class="topic-list">
+        <a class="topic-pill" href="#">Automation</a>
+        <a class="topic-pill" href="#">JMeter</a>
+        <a class="topic-pill" href="#">Selenium</a>
+        <a class="topic-pill" href="#">API Testing</a>
+        <a class="topic-pill" href="#">Mobile</a>
+        <a class="topic-pill" href="#">Performance</a>
+        <a class="topic-pill" href="#">JIRA</a>
+        <a class="topic-pill" href="#">Agile</a>
+        <a class="topic-pill" href="#">Career</a>
+        <a class="topic-pill" href="#">Berlin</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="background:var(--ink);border-color:transparent;">
+      <h4 style="color:var(--paper);">Find me online</h4>
+      <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem;">
+        <a href="https://linkedin.com/in/faiqfarhan" target="_blank" style="font-size:.85rem;color:rgba(247,244,239,.7);text-decoration:none;">↗ linkedin.com/in/faiqfarhan</a>
+        <a href="https://github.com/faiqfarhan" target="_blank" style="font-size:.85rem;color:rgba(247,244,239,.7);text-decoration:none;">↗ github.com/faiqfarhan</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Faiq Farhan</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com/in/faiqfarhan" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2025 Faiq Farhan</div>
+</footer>
+</body>
+</html>

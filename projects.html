@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects — Faiq Farhan QA Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1714;--ink2:#4a4642;--ink3:#8a8480;--paper:#f7f4ef;--paper2:#ede9e2;--accent:#c8401b;--accent2:#e8a87c;--green:#2d6a4f;--green2:#d8f3dc;--border:rgba(26,23,20,0.12);--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--border);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--ink2);text-decoration:none;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;font-size:.875rem;font-weight:500;text-decoration:none}
+.page-hero{padding:5rem 5vw 3rem;max-width:1200px;margin:0 auto}
+.breadcrumb{font-size:.8rem;color:var(--ink3);margin-bottom:1.5rem}
+.breadcrumb a{color:var(--ink3);text-decoration:none}
+.breadcrumb a:hover{color:var(--accent)}
+.page-hero h1{font-family:var(--serif);font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1;margin-bottom:1rem}
+.page-hero p{font-size:1.05rem;color:var(--ink2);max-width:580px;line-height:1.75}
+.filter-bar{padding:0 5vw;max-width:1200px;margin:0 auto 2rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.filter-btn{padding:.4rem 1rem;border-radius:2rem;border:1.5px solid var(--border);background:transparent;font-family:var(--sans);font-size:.82rem;cursor:pointer;color:var(--ink2);transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.projects-list{padding:0 5vw 5rem;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2rem}
+
+/* GitHub project cards (prominent) */
+.github-banner{background:var(--ink);border-radius:1.5rem;padding:2rem 2.5rem;margin-bottom:1rem;display:grid;grid-template-columns:1fr auto;align-items:center;gap:2rem}
+.github-banner h2{font-family:var(--serif);font-size:1.5rem;color:var(--paper);margin-bottom:.4rem}
+.github-banner p{font-size:.88rem;color:rgba(247,244,239,.65);line-height:1.65}
+.gh-badge{display:flex;align-items:center;gap:.5rem;background:var(--accent);color:#fff;padding:.6rem 1.2rem;border-radius:2rem;font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .2s}
+.gh-badge:hover{opacity:.88}
+
+.case-study{background:#fff;border:1px solid var(--border);border-radius:1.5rem;overflow:hidden;display:grid;grid-template-columns:2fr 3fr;transition:box-shadow .2s}
+.case-study:hover{box-shadow:0 8px 40px rgba(0,0,0,.07)}
+.cs-visual{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2.5rem;gap:1rem;min-height:240px}
+.cs-icon{font-size:3rem}
+.cs-metrics{display:flex;flex-direction:column;gap:.75rem;width:100%}
+.cs-metric{background:rgba(255,255,255,.7);border-radius:.75rem;padding:.75rem 1rem;text-align:center}
+.cs-metric-val{font-family:var(--serif);font-size:1.6rem;line-height:1;color:var(--ink)}
+.cs-metric-label{font-size:.7rem;color:var(--ink3);margin-top:2px}
+.cs-body{padding:2.5rem;border-left:1px solid var(--border)}
+.cs-meta{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.cs-type{font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px}
+.type-perf{background:#d8f3dc;color:var(--green)}
+.type-auto{background:#fde8e0;color:var(--accent)}
+.type-api{background:#dbeafe;color:#1e40af}
+.type-proc{background:var(--paper2);color:var(--ink2)}
+.type-gh{background:var(--ink);color:var(--paper)}
+.cs-body h2{font-family:var(--serif);font-size:1.6rem;margin-bottom:.75rem;line-height:1.2}
+.cs-body .summary{font-size:.9rem;color:var(--ink2);line-height:1.75;margin-bottom:1.25rem}
+.cs-section{margin-bottom:1.25rem}
+.cs-section-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:.4rem}
+.cs-bullets{list-style:none}
+.cs-bullets li{font-size:.85rem;color:var(--ink2);padding:.2rem 0 .2rem 1.1rem;position:relative;line-height:1.6}
+.cs-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:.75rem;top:.3rem}
+.cs-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)}
+.cs-tag{font-size:.72rem;border:1px solid var(--border);border-radius:4px;padding:.2rem .55rem;color:var(--ink2)}
+.outcome-strip{background:var(--ink);border-radius:.5rem;padding:.6rem 1rem;margin-bottom:1.25rem}
+.outcome-strip p{font-size:.82rem;color:rgba(247,244,239,.8);line-height:1.5}
+.outcome-strip strong{color:var(--accent2)}
+.code-snippet{background:#1e1b18;border-radius:.75rem;padding:1rem 1.25rem;margin:1rem 0;overflow-x:auto}
+.code-snippet pre{font-family:'Courier New',monospace;font-size:.78rem;color:#a8a29e;line-height:1.7}
+.code-snippet .kw{color:#fb923c}.code-snippet .fn{color:#86efac}.code-snippet .str{color:#fde68a}.code-snippet .cm{color:#6b7280}
+.gh-link-row{display:flex;align-items:center;gap:1rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.gh-inline-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--ink);color:var(--paper);padding:.45rem 1rem;border-radius:2rem;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s}
+.gh-inline-btn:hover{background:var(--accent)}
+footer{background:var(--paper2);border-top:1px solid var(--border);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:.82rem;color:var(--ink3);text-decoration:none}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-size:.78rem;color:var(--ink3)}
+@media(max-width:768px){.case-study{grid-template-columns:1fr}.cs-visual{min-height:140px;flex-direction:row;justify-content:flex-start}.cs-metrics{flex-direction:row;width:auto}.cs-body{border-left:none;border-top:1px solid var(--border)}.github-banner{grid-template-columns:1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Faiq Farhan</a>
+  <ul class="nav-links">
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Hire me</a>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Projects</div>
+  <h1>QA Case Studies &amp; Open Source</h1>
+  <p>Real projects, real outcomes — plus two open-source testing frameworks you can star, fork, and use today.</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+  <button class="filter-btn" onclick="filterProjects('opensource',this)">Open Source</button>
+  <button class="filter-btn" onclick="filterProjects('performance',this)">Performance</button>
+  <button class="filter-btn" onclick="filterProjects('automation',this)">Automation</button>
+  <button class="filter-btn" onclick="filterProjects('api',this)">API Testing</button>
+</div>
+
+<div class="projects-list" id="projects-list">
+
+  <!-- ═══════════════════ OPEN SOURCE 1 ═══════════════════ -->
+  <div class="case-study" data-type="opensource automation">
+    <div class="cs-visual" style="background:linear-gradient(145deg,#fde8e0,#f4bfaa);">
+      <div class="cs-icon">🤖</div>
+      <div class="cs-metrics">
+        <div class="cs-metric"><div class="cs-metric-val">POM</div><div class="cs-metric-label">Architecture</div></div>
+        <div class="cs-metric"><div class="cs-metric-val">CI/CD</div><div class="cs-metric-label">GitHub Actions</div></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-meta">
+        <span class="cs-type type-gh">⭐ Open Source</span>
+        <span class="cs-type type-auto">Automation</span>
+      </div>
+      <h2>selenium-pom-framework</h2>
+      <div class="outcome-strip"><p><strong>What it is:</strong> A production-ready Selenium + Python test framework with Page Object Model, pytest, parallel execution, HTML reports, and GitHub Actions CI — ready to clone and run.</p></div>
+      <p class="summary">This framework was built from patterns I developed across multiple projects. It solves the most common problems in Selenium projects: flaky locators, poor test isolation, slow sequential execution, and zero visibility in CI. It's the starting point I wish I'd had when I first set up Selenium at Octek.</p>
+
+      <div class="cs-section">
+        <div class="cs-section-label">What's inside</div>
+        <ul class="cs-bullets">
+          <li>Page Object Model structure — every page has its own class with locators and actions cleanly separated</li>
+          <li>pytest fixtures for browser setup/teardown — no boilerplate in test files</li>
+          <li>Parallel test execution with pytest-xdist, cutting suite time significantly</li>
+          <li>HTML report generation with pytest-html — shareable test evidence after every run</li>
+          <li>GitHub Actions workflow — tests run automatically on every push and pull request</li>
+          <li>Sample tests against a live demo site (SauceDemo) so you can see it working immediately</li>
+          <li>Configurable via a single config.py — switch browser, base URL, headless mode in one place</li>
+        </ul>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-label">Key code structure</div>
+        <div class="code-snippet"><pre><span class="cm"># pages/login_page.py</span>
+<span class="kw">class</span> <span class="fn">LoginPage</span>:
+    <span class="fn">URL</span> = <span class="str">"https://www.saucedemo.com"</span>
+    USERNAME_INPUT = (By.ID, <span class="str">"user-name"</span>)
+    PASSWORD_INPUT = (By.ID, <span class="str">"password"</span>)
+    LOGIN_BUTTON   = (By.ID, <span class="str">"login-button"</span>)
+
+    <span class="kw">def</span> <span class="fn">login</span>(self, username, password):
+        self.driver.find_element(*self.USERNAME_INPUT).send_keys(username)
+        self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
+        self.driver.find_element(*self.LOGIN_BUTTON).click()</pre></div>
+      </div>
+
+      <div class="gh-link-row">
+        <a class="gh-inline-btn" href="https://github.com/faiqfarhan/selenium-pom-framework" target="_blank">⭐ View on GitHub</a>
+        <span style="font-size:.8rem;color:var(--ink3);">Python · Selenium · pytest · GitHub Actions</span>
+      </div>
+      <div class="cs-tags"><span class="cs-tag">Python</span><span class="cs-tag">Selenium WebDriver</span><span class="cs-tag">pytest</span><span class="cs-tag">Page Object Model</span><span class="cs-tag">GitHub Actions</span><span class="cs-tag">HTML Reports</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ OPEN SOURCE 2 ═══════════════════ -->
+  <div class="case-study" data-type="opensource performance">
+    <div class="cs-visual" style="background:linear-gradient(145deg,#d8f3dc,#95d5b2);">
+      <div class="cs-icon">⚡</div>
+      <div class="cs-metrics">
+        <div class="cs-metric"><div class="cs-metric-val">CI</div><div class="cs-metric-label">Ready</div></div>
+        <div class="cs-metric"><div class="cs-metric-val">JMeter</div><div class="cs-metric-label">+ Grafana</div></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-meta">
+        <span class="cs-type type-gh">⭐ Open Source</span>
+        <span class="cs-type type-perf">Performance</span>
+      </div>
+      <h2>jmeter-load-test-suite</h2>
+      <div class="outcome-strip"><p><strong>What it is:</strong> A complete JMeter test suite with realistic multi-step user journeys, response time assertions, Grafana dashboard config, and a shell script to run everything from CI.</p></div>
+      <p class="summary">Performance testing is often treated as a one-off activity before a big release. This suite is designed to make it continuous — tests run in CI on every release candidate, and the Grafana dashboard gives instant visibility into regressions in response time or error rate. Built from patterns used at InstaFreight and The XPertz.</p>
+
+      <div class="cs-section">
+        <div class="cs-section-label">What's inside</div>
+        <ul class="cs-bullets">
+          <li>JMeter test plan (.jmx) covering a realistic e-commerce flow: browse → search → add to cart → checkout</li>
+          <li>Parameterised user data via CSV — simulate 500 unique users with different credentials and behaviours</li>
+          <li>Response time SLA assertions — test fails automatically if p95 exceeds threshold</li>
+          <li>InfluxDB + Grafana dashboard config — import one JSON file and get instant metrics visibility</li>
+          <li>run_tests.sh — single command to execute tests, generate reports, and post results to Slack</li>
+          <li>GitHub Actions workflow — runs a smoke load test (50 users, 2 min) on every PR</li>
+          <li>Detailed README with setup instructions, tuning guidance, and how to read the reports</li>
+        </ul>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-label">CI execution command</div>
+        <div class="code-snippet"><pre><span class="cm"># run_tests.sh — used in GitHub Actions</span>
+jmeter -n \
+  -t test-plans/ecommerce_load.jmx \
+  -l results/results.jtl \
+  -e -o results/html-report \
+  -Jthreads=<span class="str">100</span> \
+  -Jrampup=<span class="str">60</span> \
+  -Jduration=<span class="str">300</span> \
+  -Jp95_threshold=<span class="str">2000</span>   <span class="cm"># fail if p95 > 2s</span></pre></div>
+      </div>
+
+      <div class="gh-link-row">
+        <a class="gh-inline-btn" href="https://github.com/faiqfarhan/jmeter-load-test-suite" target="_blank">⭐ View on GitHub</a>
+        <span style="font-size:.8rem;color:var(--ink3);">JMeter · Grafana · InfluxDB · Shell</span>
+      </div>
+      <div class="cs-tags"><span class="cs-tag">JMeter</span><span class="cs-tag">Grafana</span><span class="cs-tag">InfluxDB</span><span class="cs-tag">Shell scripting</span><span class="cs-tag">GitHub Actions</span><span class="cs-tag">Performance SLAs</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CASE STUDY: INSTAFREIGHT ═══════════════════ -->
+  <div class="case-study" data-type="api automation">
+    <div class="cs-visual" style="background:linear-gradient(145deg,#dbeafe,#bfdbfe);">
+      <div class="cs-icon">🚚</div>
+      <div class="cs-metrics">
+        <div class="cs-metric"><div class="cs-metric-val">+30%</div><div class="cs-metric-label">Automation efficiency</div></div>
+        <div class="cs-metric"><div class="cs-metric-val">200+</div><div class="cs-metric-label">API scenarios</div></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-meta">
+        <span class="cs-type type-api">API Testing</span>
+        <span class="cs-type type-auto">Automation</span>
+      </div>
+      <h2>Logistics API Automation — InstaFreight</h2>
+      <div class="outcome-strip"><p><strong>Outcome:</strong> 30% increase in testing efficiency. Regression suite ran in CI on every deployment, catching integration bugs before they reached staging.</p></div>
+      <p class="summary">InstaFreight's platform connects freight shippers and carriers through a complex set of REST APIs — shipment creation, pricing, carrier matching, and tracking. Manual API testing was a bottleneck. I built a structured Postman + Newman test suite covering all core endpoints with data-driven scenarios and integrated it into the CI pipeline.</p>
+      <div class="cs-section">
+        <div class="cs-section-label">Challenge</div>
+        <ul class="cs-bullets">
+          <li>APIs were tested manually before each release — slow, inconsistent, and error-prone</li>
+          <li>No standard way to share test scenarios across team members or reproduce failures</li>
+          <li>Several edge cases (empty carrier lists, pricing timeouts) were never tested until bugs were found in production</li>
+        </ul>
+      </div>
+      <div class="cs-section">
+        <div class="cs-section-label">Approach</div>
+        <ul class="cs-bullets">
+          <li>Mapped all API endpoints and defined test scenarios for happy paths and key error conditions</li>
+          <li>Built Postman collections with pre-request scripts for auth token management and environment variables</li>
+          <li>Used data files (CSV) to drive data-variation tests — different shipment sizes, routes, and carrier types</li>
+          <li>Integrated Newman (Postman CLI) into Jenkins pipeline — tests run on every deployment to staging</li>
+          <li>Set up test reports in TestRail, linking automated results to manual test cases for traceability</li>
+        </ul>
+      </div>
+      <div class="cs-tags"><span class="cs-tag">Postman</span><span class="cs-tag">Newman</span><span class="cs-tag">REST API</span><span class="cs-tag">Jenkins</span><span class="cs-tag">TestRail</span><span class="cs-tag">JIRA</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CASE STUDY: ANSYS ═══════════════════ -->
+  <div class="case-study" data-type="automation">
+    <div class="cs-visual" style="background:linear-gradient(145deg,#ede9e2,#d4cfca);">
+      <div class="cs-icon">🔬</div>
+      <div class="cs-metrics">
+        <div class="cs-metric"><div class="cs-metric-val">HW/SW</div><div class="cs-metric-label">Integration verified</div></div>
+        <div class="cs-metric"><div class="cs-metric-val">↑</div><div class="cs-metric-label">Coverage &amp; reliability</div></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-meta">
+        <span class="cs-type type-auto">Automation</span>
+        <span class="cs-type type-proc">Verification Strategy</span>
+      </div>
+      <h2>R&amp;D Verification Framework — Ansys</h2>
+      <div class="outcome-strip"><p><strong>Outcome:</strong> Scalable automated verification framework covering hardware/software integration layers — improved coverage, reliability, and compliance traceability across complex simulation software releases.</p></div>
+      <p class="summary">At Ansys, software verification must meet stringent quality standards for engineering simulation products used in aerospace, automotive, and industrial applications. I designed and implemented end-to-end verification strategies covering test planning through automated regression, with full traceability to requirements.</p>
+      <div class="cs-section">
+        <div class="cs-section-label">Key activities</div>
+        <ul class="cs-bullets">
+          <li>Designed verification plans mapping tests to functional and non-functional requirements for traceability</li>
+          <li>Built automated regression suites for hardware/software integration test scenarios</li>
+          <li>Conducted root cause analysis on failures — distinguishing test environment issues from genuine defects</li>
+          <li>Collaborated with R&amp;D teams to define acceptance criteria for complex simulation features</li>
+          <li>Maintained detailed quality metric reporting for stakeholders and compliance documentation</li>
+        </ul>
+      </div>
+      <div class="cs-tags"><span class="cs-tag">QA Automation</span><span class="cs-tag">Verification Planning</span><span class="cs-tag">HW/SW Integration</span><span class="cs-tag">Requirements Traceability</span><span class="cs-tag">Root Cause Analysis</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CASE STUDY: OCTEK MOBILE ═══════════════════ -->
+  <div class="case-study" data-type="automation">
+    <div class="cs-visual" style="background:linear-gradient(145deg,#e9d5ff,#c4b5fd);">
+      <div class="cs-icon">📱</div>
+      <div class="cs-metrics">
+        <div class="cs-metric"><div class="cs-metric-val">+20%</div><div class="cs-metric-label">Testing efficiency</div></div>
+        <div class="cs-metric"><div class="cs-metric-val">iOS+Android</div><div class="cs-metric-label">Coverage</div></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-meta">
+        <span class="cs-type type-auto">Automation</span>
+        <span class="cs-type type-proc">Process</span>
+      </div>
+      <h2>Mobile &amp; Web Test Automation — Octek</h2>
+      <div class="outcome-strip"><p><strong>Outcome:</strong> 20% improvement in testing efficiency through a new test case management process and partial automation of mobile regression flows.</p></div>
+      <p class="summary">At Octek I was responsible for testing both web and mobile (iOS and Android) applications. Manual regression was time-consuming and inconsistent. I introduced structured test case management and automated the highest-risk mobile user journeys using Java and JMeter for backend load scenarios.</p>
+      <div class="cs-section">
+        <div class="cs-section-label">Approach</div>
+        <ul class="cs-bullets">
+          <li>Designed and documented test cases covering all critical mobile flows for iOS and Android in JIRA</li>
+          <li>Implemented a structured test case management process — priority tagging, owner assignment, and sprint linking</li>
+          <li>Wrote JMeter scripts to stress-test backend APIs serving the mobile applications</li>
+          <li>Collaborated with developers to reproduce and diagnose device-specific defects</li>
+          <li>Ensured on-time delivery by coordinating testing milestones with release schedules</li>
+        </ul>
+      </div>
+      <div class="cs-tags"><span class="cs-tag">Java</span><span class="cs-tag">JMeter</span><span class="cs-tag">iOS testing</span><span class="cs-tag">Android testing</span><span class="cs-tag">JIRA</span><span class="cs-tag">Test Management</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Faiq Farhan</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com/in/faiqfarhan" target="_blank">LinkedIn</a>
+    <a href="https://github.com/faiqfarhan" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2025 Faiq Farhan</div>
+</footer>
+
+<script>
+function filterProjects(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.case-study').forEach(card => {
+    const types = card.dataset.type || '';
+    if (type === 'all' || types.includes(type)) {
+      card.style.display = 'grid';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
